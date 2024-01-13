@@ -10,7 +10,12 @@ package tecladovirtualapp;
  * @author Hp
  */
 public class TecladoVirtualApp {
-
+    private JTextArea textArea;
+    private JLabel fraseLabel;
+    private List<String> frases;
+    private int pulsacionesCorrectas;
+    private int pulsacionesIncorrectas;
+    private Set<Character> letrasDificiles;
     /**
      * @param args the command line arguments
      */
@@ -68,6 +73,23 @@ public class TecladoVirtualApp {
             e.printStackTrace();
         }
         return listaFrases;
+    }
+    private class TeclaActionListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JButton boton = (JButton) e.getSource();
+            String tecla = boton.getText();
+
+            if (tecla.equals("Espacio")) {
+                textArea.append(" ");
+            } else if (tecla.equals("⇐")) {
+                eliminarUltimaLetra();
+            } else if (tecla.equals("ENTER")) {
+                
+            } else {
+                textArea.append(tecla);
+            }
+        }
     }
     public static void main(String[] args) {
         // TODO code application logic here
