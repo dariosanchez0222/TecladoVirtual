@@ -16,26 +16,21 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-/**
- *
- * @author Hp
- */
-public class TecladoVirtualApp {
+
+public class TecladoVirtualApp extends JFrame {
     private JTextArea textArea;
     private JLabel fraseLabel;
     private List<String> frases;
     private int pulsacionesCorrectas;
     private int pulsacionesIncorrectas;
     private Set<Character> letrasDificiles;
-    /**
-     * @param args the command line arguments
-     */
+
     public TecladoVirtualApp() {
         super("Teclado Virtual App");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1500, 250);
 
-        frases = leerPangramaDesdeArchivo("/pangramas.txt");
+        frases = leerPangramaDesdeArchivo("C:/Users/Hp/OneDrive/Documents/NetBeansProjects/TecladoVirtualApp/pangramas.txt");
         Collections.shuffle(frases);
 
         fraseLabel = new JLabel(frases.get(0));
@@ -73,6 +68,7 @@ public class TecladoVirtualApp {
 
         reiniciar();
     }
+
     private List<String> leerPangramaDesdeArchivo(String ruta) {
         List<String> listaFrases = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
@@ -85,6 +81,16 @@ public class TecladoVirtualApp {
         }
         return listaFrases;
     }
+
+    private void reiniciar() {
+        pulsacionesCorrectas = 0;
+        pulsacionesIncorrectas = 0;
+        letrasDificiles = new HashSet<>();
+        Collections.shuffle(frases);
+        fraseLabel.setText(frases.get(0));
+        textArea.setText("");
+    }
+
     private class TeclaActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -102,6 +108,7 @@ public class TecladoVirtualApp {
             }
         }
     }
+
     private class ComprobarActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -145,14 +152,16 @@ public class TecladoVirtualApp {
         reiniciar();
     }
 }
+
+
     private void eliminarUltimaLetra() {
         String texto = textArea.getText();
         if (!texto.isEmpty()) {
             textArea.setText(texto.substring(0, texto.length() - 1));
         }
     }
+
     public static void main(String[] args) {
-        // TODO code application logic here
+        SwingUtilities.invokeLater(() -> new TecladoVirtualApp().setVisible(true));
     }
-    
 }
