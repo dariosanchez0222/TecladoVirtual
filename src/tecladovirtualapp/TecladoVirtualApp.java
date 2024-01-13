@@ -4,7 +4,18 @@
  * and open the template in the editor.
  */
 package tecladovirtualapp;
-
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 /**
  *
  * @author Hp
@@ -134,6 +145,12 @@ public class TecladoVirtualApp {
         reiniciar();
     }
 }
+    private void eliminarUltimaLetra() {
+        String texto = textArea.getText();
+        if (!texto.isEmpty()) {
+            textArea.setText(texto.substring(0, texto.length() - 1));
+        }
+    }
     public static void main(String[] args) {
         // TODO code application logic here
     }
