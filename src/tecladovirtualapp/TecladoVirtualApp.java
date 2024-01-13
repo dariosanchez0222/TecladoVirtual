@@ -19,6 +19,12 @@ public class TecladoVirtualApp {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1500, 250);
 
+        frases = leerPangramaDesdeArchivo("/pangramas.txt");
+        Collections.shuffle(frases);
+
+        fraseLabel = new JLabel(frases.get(0));
+        add(fraseLabel, BorderLayout.NORTH);
+
         textArea = new JTextArea();
         JScrollPane scrollPane = new JScrollPane(textArea);
         add(scrollPane, BorderLayout.CENTER);
@@ -42,6 +48,26 @@ public class TecladoVirtualApp {
                 boton.addActionListener(new ComprobarActionListener());
             }
         }
+
+        
+        JPanel bottomPanel = new JPanel(new BorderLayout());
+        bottomPanel.add(tecladoPanel, BorderLayout.CENTER);
+
+        add(bottomPanel, BorderLayout.SOUTH);
+
+        reiniciar();
+    }
+    private List<String> leerPangramaDesdeArchivo(String ruta) {
+        List<String> listaFrases = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                listaFrases.add(linea);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return listaFrases;
     }
     public static void main(String[] args) {
         // TODO code application logic here
